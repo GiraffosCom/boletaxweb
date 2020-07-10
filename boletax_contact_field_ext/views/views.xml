@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+    <!-- Form View ResPartner Inherit -->
+    <record model="ir.ui.view" id="contact_form_inherit">
+      <field name="name">contact.form.inherit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <field name="category_id" position="after">
+          <field name="x_apikey"/>
+          <!--<field name="x_correologin"/>-->
+          <field name="x_sucursal"/>
+          <field name="x_correo_login"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</odoo>
