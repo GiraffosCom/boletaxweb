@@ -3,7 +3,6 @@
 
 from odoo import models, fields, api
 
-
 class ContactExtension(models.Model):    
     _inherit ='res.partner'
     
@@ -11,6 +10,7 @@ class ContactExtension(models.Model):
     x_apikey=fields.Char(string='Apikey')
     x_correo_login=fields.Char(string='Correo Login App')
     x_sucursal=fields.Char(string='Sucursal')
+    x_certificate_password=fields.Char(string='Certificate Password')
     #x_rut=fields.Char(string='Rut Comercio')
     #x_razon_social=fields.Char(string='Razón Social')
     #x_direccion=fields.Char(string='Dirección')

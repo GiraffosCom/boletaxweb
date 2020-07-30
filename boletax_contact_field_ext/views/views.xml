@@ -11,6 +11,8 @@
           <!--<field name="x_correologin"/>-->
           <field name="x_sucursal"/>
           <field name="x_correo_login"/>
+          <field name="x_certificate_password"/>
+	   <!--field name="x_comuna"/-->
         </field>
       </field>
     </record>
