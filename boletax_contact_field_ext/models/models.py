@@ -70,8 +70,7 @@ class ContactExtension(models.Model):
         try:
             p12 = crypto.load_pkcs12(filecontent, self.dec_pass)
         except:
-            raise UserError('Error al abrir la firma, posiblmente ha ingresado\
- mal la clave de la firma o el archivo no es compatible.')
+            raise UserError('Error al abrir la firma, clave incorrecta o el archivo no es compatible.')
 
         cert = p12.get_certificate()
         privky = p12.get_privatekey()
@@ -113,13 +112,13 @@ class ContactExtension(models.Model):
         self.priv_key = crypto.dump_privatekey(type_, private_key)
         self.cert = crypto.dump_certificate(type_, certificate)
 
-        self.dec_pass = False
+        #self.dec_pass = False
 
     filename = fields.Char(string='File Name')
     key_file = fields.Binary(
         string='Signature File', required=False, store=True,
         help='Upload the Signature File')
-    dec_pass = fields.Char(string='Pasword')
+    dec_pass = fields.Char(string='Password')
     # vigencia y estado
     not_before = fields.Date(
         string='Not Before', help='Not Before this Date', readonly=True)
