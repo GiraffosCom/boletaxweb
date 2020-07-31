@@ -13,7 +13,7 @@
           <field name="legal_email"/>
         </field>
         <field name="category_id" position="after">
-          <field name="client_id"/>
+          <field name="x_client_id"/>
           <field name="x_apikey"/>
           <field name="x_sucursal"/>
           <field name="x_correo_login"/>
