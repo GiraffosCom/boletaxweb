@@ -6,13 +6,20 @@
       <field name="model">res.partner</field>
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
+      <field name="country_id" position="after">
+          <field name="legal_name"/>
+          <field name="legal_rut"/>
+          <field name="legal_phone"/>
+          <field name="legal_email"/>
+        </field>
         <field name="category_id" position="after">
           <field name="x_apikey"/>
-          <!--<field name="x_correologin"/>-->
           <field name="x_sucursal"/>
           <field name="x_correo_login"/>
-          <field name="x_certificate_password"/>
-	   <!--field name="x_comuna"/-->
+          <field name="dte_resolution_number"/>
+          <field name="dte_resolution_date"/>
+          <field name="dte_resolution_number_trial"/>
+          <field name="dte_resolution_date_trial"/>
         </field>
         <xpath expr='//notebook' position="inside">
 				<page string="Signature File">
