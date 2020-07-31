@@ -49,18 +49,18 @@ class ContactExtension(models.Model):
     _inherit ='res.partner'
     
 
-    x_apikey=fields.Char(string='Apikey')
-    x_correo_login=fields.Char(string='Correo Login App')
-    x_sucursal=fields.Char(string='Sucursal')
-    dte_resolution_number.Char(string='Número de Resolución Exenta')
-    dte_resolution_date.Date(string='Fecha de Resolución Exenta')
-    dte_resolution_number_trial.Char(string='Número de Resolución Exenta Certificación')
-    dte_resolution_date_trial.Date(string='Fecha de Resolución Exenta Certificación')
+    x_apikey = fields.Char(string='Apikey')
+    x_correo_login = fields.Char(string='Correo Login App')
+    x_sucursal = fields.Char(string='Sucursal')
+    dte_resolution_number = fields.Char(string='Número de Resolución Exenta')
+    dte_resolution_date = fields.Date(string='Fecha de Resolución Exenta')
+    dte_resolution_number_trial = fields.Char(string='Número de Resolución Exenta Certificación')
+    dte_resolution_date_trial = fields.Date(string='Fecha de Resolución Exenta Certificación')
     
-    legal_name.Char(string='Representante Legal')
-    legal_rut.Char(string='Rut Representante Legal')
-    legal_phone.Char(string='Telefono Representante Legal')
-    legal_email.Char(string='Correo Representante Legal')
+    legal_name = fields.Char(string='Representante Legal')
+    legal_rut = fields.Char(string='Rut Representante Legal')
+    legal_phone = fields.Char(string='Telefono Representante Legal')
+    legal_email = fields.Char(string='Correo Representante Legal')
 
       
     #x_rut=fields.Char(string='Rut Comercio')
