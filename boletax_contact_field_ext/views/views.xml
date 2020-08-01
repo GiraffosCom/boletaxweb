@@ -7,14 +7,13 @@
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
          <field name="vat" position="after">
-          <field name="x_client_id" widget="radio"/>
           <field name="legal_name"/>
           <field name="legal_rut"/>
           <field name="legal_phone"/>
           <field name="legal_email"/>
         </field>
         <field name="category_id" position="after">
-          
+          <field name="x_client_id" widget="radio"/>
           <field name="x_apikey"/>
           <field name="x_sucursal"/>
           <field name="x_correo_login"/>
