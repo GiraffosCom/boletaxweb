@@ -63,7 +63,12 @@ class ContactExtension(models.Model):
     legal_phone = fields.Char(string='Telefono Representante Legal')
     legal_email = fields.Char(string='Correo Representante Legal')
     x_comuna=fields.Char(string='Comuna')
-      
+
+    client_ref_id = fields.Many2one(
+            'res.partner',
+            string="Cliente",
+        )
+     
     #x_rut=fields.Char(string='Rut Comercio')
     #x_razon_social=fields.Char(string='Razón Social')
     #x_direccion=fields.Char(string='Dirección')
