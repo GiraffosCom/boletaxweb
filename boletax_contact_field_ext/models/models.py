@@ -52,6 +52,7 @@ class ContactExtension(models.Model):
     x_apikey = fields.Char(string='Apikey')
     x_correo_login = fields.Char(string='Correo Login App')
     x_sucursal = fields.Char(string='Sucursal')
+    x_is_client = fields.Radio(string='Cliente Principal',[('si','Si'),('no','No')])
     dte_resolution_number = fields.Char(string='Número de Resolución Exenta')
     dte_resolution_date = fields.Date(string='Fecha de Resolución Exenta')
     dte_resolution_number_trial = fields.Char(string='Número de Resolución Exenta Certificación')
