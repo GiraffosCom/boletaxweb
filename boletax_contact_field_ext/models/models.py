@@ -62,12 +62,12 @@ class ContactExtension(models.Model):
     legal_rut = fields.Char(string='Rut Representante Legal')
     legal_phone = fields.Char(string='Telefono Representante Legal')
     legal_email = fields.Char(string='Correo Representante Legal')
-
+    x_comuna=fields.Char(string='Comuna')
       
     #x_rut=fields.Char(string='Rut Comercio')
     #x_razon_social=fields.Char(string='Razón Social')
     #x_direccion=fields.Char(string='Dirección')
-    #x_comuna=fields.Char(string='Comuna')
+    
 
     def check_signature(self):
         for s in self:
