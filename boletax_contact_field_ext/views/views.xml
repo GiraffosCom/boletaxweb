@@ -6,17 +6,19 @@
       <field name="model">res.partner</field>
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
-         <field name="category_id" position="after">
-               <field name="x_sucursal"/>
-               <field name="x_correo_login"/>
-               <field name="x_comuna"/>
-         </field>
+       
         <xpath expr='//notebook' position="inside">
-         <page string="Información Empresa">
-           <group>
+         <page string="IRS">
+           <group string="Cliente">
                <field name="x_is_client" widget="radio"/>
                <field name="x_client_id"/>
                <field name="x_apikey"/>
+            </group>   
+            <group string="Datos de Facturación">
+               <field name="x_sucursal"/>
+               <field name="x_correo_login"/>
+               <field name="x_comuna"/>
+               
                <field name="legal_name"/>
                <field name="legal_rut"/>
                <field name="legal_phone"/>
@@ -27,7 +29,7 @@
                <field name="dte_resolution_date"/>
                <field name="dte_resolution_number_trial"/>
                <field name="dte_resolution_date_trial"/>
-           </group>
+           </group>   
          
          </page>
           <page string="Certificado Digital">

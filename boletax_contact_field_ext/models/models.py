@@ -48,11 +48,11 @@ zero_values = {
 class ContactExtension(models.Model):    
     _inherit ='res.partner'
     
+    x_is_client = fields.Selection([('si','Si'),('no','No')],string='Cliente Principal')
     x_client_id = fields.Char(string='Número Cliente')
     x_apikey = fields.Char(string='Apikey')
     x_correo_login = fields.Char(string='Correo Login App')
     x_sucursal = fields.Char(string='Sucursal')
-    x_is_client = fields.Selection([('si','Si'),('no','No')],string='Es Cliente')
     dte_resolution_number = fields.Char(string='Número de Resolución Exenta')
     dte_resolution_date = fields.Date(string='Fecha de Resolución Exenta')
     dte_resolution_number_trial = fields.Char(string='Número de Resolución Exenta Certificación')
