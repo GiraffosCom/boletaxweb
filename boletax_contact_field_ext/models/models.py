@@ -48,7 +48,7 @@ zero_values = {
 class ContactExtension(models.Model):    
     _inherit ='res.partner'
     
-    x_is_client = fields.Selection([('si','Si'),('no','No')],string='Cliente Principal')
+    x_is_client = fields.Selection([('1','Si'),('0','No')],string='Cliente Principal')
     x_client_id = fields.Char(string='Número Cliente')
     x_apikey = fields.Char(string='Apikey')
     x_correo_login = fields.Char(string='Correo Login App')
