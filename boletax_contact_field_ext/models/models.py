@@ -50,7 +50,6 @@ class ContactExtension(models.Model):
     
     x_is_client = fields.Selection([('si','Si'),('no','No')],string='Cliente Principal')
     x_client_id = fields.Char(string='Número Cliente')
-    x_client_id_display = fields.Char(string='Número Cliente',readonly=True)
     x_apikey = fields.Char(string='Apikey')
     x_correo_login = fields.Char(string='Correo Login App')
     x_sucursal = fields.Char(string='Sucursal')
@@ -84,7 +83,7 @@ class ContactExtension(models.Model):
                 limit=1,
             )
         self.x_client_id = customer_id[0].x_client_id
-        self.x_client_id_display = customer_id[0].x_client_id
+       
 
     def check_signature(self):
         for s in self:
