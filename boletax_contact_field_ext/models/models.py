@@ -83,7 +83,7 @@ class ContactExtension(models.Model):
                 limit=1,
             )
         self.x_client_id = customer_id[0].x_client_id
-  
+        self.x_client_id_display = customer_id[0].x_client_id
 
     def check_signature(self):
         for s in self:
