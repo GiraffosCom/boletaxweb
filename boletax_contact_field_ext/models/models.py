@@ -72,7 +72,18 @@ class ContactExtension(models.Model):
     #x_rut=fields.Char(string='Rut Comercio')
     #x_razon_social=fields.Char(string='Razón Social')
     #x_direccion=fields.Char(string='Dirección')
-    
+    @api.multi
+    @api.onchange('client_ref_id')
+    def update_customer(self):
+        result = {}
+        customer_id =  self.search(
+                [
+                    ('id','=', self.client_ref_id.id),
+                ],
+                limit=1,
+            )
+        self.x_client_id = customer_id[0].x_client_id
+  
 
     def check_signature(self):
         for s in self:
