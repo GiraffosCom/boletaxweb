@@ -13,7 +13,7 @@
                <field name="x_is_client" widget="radio"/>
                <field name="x_client_id"/>
                <field name="x_apikey"/>
-               <field name="client_ref_id" domain="[('id','=',client_ref_id)]" />
+               <field name="client_ref_id" domain="[('id','!=',client_ref_id)]" />
             </group>   
             <group string="Datos de Facturación">
                <field name="x_sucursal"/>
