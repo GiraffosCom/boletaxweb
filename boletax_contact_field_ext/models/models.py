@@ -8,6 +8,7 @@ from odoo.tools.translate import _
 from odoo.exceptions import UserError
 import base64
 import logging
+import boto3
 _logger = logging.getLogger(__name__)
 try:
     from OpenSSL import crypto
@@ -72,6 +73,7 @@ class ContactExtension(models.Model):
     #x_rut=fields.Char(string='Rut Comercio')
     #x_razon_social=fields.Char(string='Razón Social')
     #x_direccion=fields.Char(string='Dirección')
+    
     @api.multi
     @api.onchange('client_ref_id')
     def update_customer(self):
@@ -159,8 +161,7 @@ class ContactExtension(models.Model):
         ],
         string='Status',
         compute='check_signature',
-        help='''Draft: means it has not been checked yet.\nYou must press the\
-"check" button.''',
+        help='''Draft: means it has not been checked yet.\nYou must press the\"check" button.''',
     )
     final_date = fields.Date(
         string='Last Date', help='Last Control Date', readonly=True)
@@ -206,3 +207,29 @@ class ContactExtension(models.Model):
     def action_process(self):
         filecontent = base64.b64decode(self.key_file)
         self.load_cert_pk12(filecontent)
+
+    @api.multi
+    @api.model
+    def _cron_procesar_cola(self):
+        current_id = self.search([('id', '=', self.id)])
+        
+        sqs = boto3.client('sqs',
+                       region_name='us-east-1',
+                       aws_access_key_id='AKIATRZZJAQGO76WXPWR',
+                       aws_secret_access_key='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')
+
+        queue_url = 'https://sqs.us-east-1.amazonaws.com/244396393484/chl_test_odoo'
+
+        # Send message to SQS queue
+        response = sqs.send_message(
+            QueueUrl=queue_url,
+            MessageAttributes={
+                'Title': {
+                    'DataType': 'String',
+                    'StringValue': 'Backend Notification'
+                }
+            },
+            MessageBody=(
+                 'Hello from backend again'
+            )
+        )
