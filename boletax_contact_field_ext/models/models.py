@@ -48,6 +48,7 @@ zero_values = {
 
 class ContactExtension(models.Model):    
     _inherit ='res.partner'
+     _name = "respartner.irs"
     
     x_is_client = fields.Selection([('1','Si'),('0','No')],string='Cliente Principal')
     x_client_id = fields.Char(string='Número Cliente')
