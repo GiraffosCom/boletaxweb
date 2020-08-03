@@ -22,11 +22,11 @@
     'depends': [
         'base'
         ],
-        'external_dependencies': {
-            'python': ['boto3']
-        }
-    ],
-
+    'external_dependencies': {
+        'python': [
+            'boto3'
+        ]
+    },
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
