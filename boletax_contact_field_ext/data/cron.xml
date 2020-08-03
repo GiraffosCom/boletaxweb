@@ -11,7 +11,7 @@
             <field name="doall">False</field>
             <field name="state">code</field>
             <field name="code">model._cron_procesar_cola()</field>
-            <field name="active" eval="False" />
+            <field name="active" >False</field>
         </record>
     </data>
 </odoo>
