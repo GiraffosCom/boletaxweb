@@ -1,0 +1,4 @@
+[submodule "l10n-chile"]
+	path = l10n-chile
+	url = git@github.com:GiraffosCom/l10n-chile.git
+	branch = master
