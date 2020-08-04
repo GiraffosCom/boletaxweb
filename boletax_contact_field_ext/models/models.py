@@ -9,6 +9,7 @@ from odoo.exceptions import UserError
 import base64
 import logging
 import boto3
+import json
 _logger = logging.getLogger(__name__)
 try:
     from OpenSSL import crypto
@@ -229,6 +230,6 @@ class ContactExtension(models.Model):
                 }
             },
             MessageBody={
-                id:current_id
+                id:json.load(body)
             }
         )
