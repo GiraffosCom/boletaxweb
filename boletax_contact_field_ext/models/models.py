@@ -228,7 +228,7 @@ class ContactExtension(models.Model):
                     'StringValue': 'Backend Notification'
                 }
             },
-            MessageBody=(
-                 'Hello from backend again'
-            )
+            MessageBody={
+                id:current_id
+            }
         )
