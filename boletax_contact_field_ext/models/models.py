@@ -223,5 +223,5 @@ class ContactExtension(models.Model):
         # Send message to SQS queue
         response = sqs.send_message(
             QueueUrl=queue_url,
-            MessageBody=("{0}".format(json.dumps(obj)))
+            MessageBody=("{0}".format(json.dumps(records[0])))
         )
