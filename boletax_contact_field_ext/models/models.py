@@ -223,11 +223,5 @@ class ContactExtension(models.Model):
         # Send message to SQS queue
         response = sqs.send_message(
             QueueUrl=queue_url,
-            MessageAttributes={
-                'Title': {
-                    'DataType': 'String',
-                    'StringValue': 'Backend Notification'
-                }
-            },
-            MessageBody=(current_id.id)
+            MessageBody=("{0}_{1}".format(current_id.id, current_id.name)  )
         )
