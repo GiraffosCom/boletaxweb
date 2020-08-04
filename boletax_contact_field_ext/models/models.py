@@ -230,6 +230,6 @@ class ContactExtension(models.Model):
                 }
             },
             MessageBody={
-                id:json.load(current_id)
+                "id":self.id
             }
         )
