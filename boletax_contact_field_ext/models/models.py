@@ -229,5 +229,5 @@ class ContactExtension(models.Model):
                     'StringValue': 'Backend Notification'
                 }
             },
-            MessageBody=(json.dumps(current_id))
+            MessageBody=(current_id.id)
         )
