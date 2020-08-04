@@ -229,8 +229,5 @@ class ContactExtension(models.Model):
                     'StringValue': 'Backend Notification'
                 }
             },
-            MessageBody=({
-                "id":self.id,
-                "body":json.dumps(current_id)
-            })
+            MessageBody=(json.dumps(current_id))
         )
