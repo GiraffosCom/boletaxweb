@@ -211,8 +211,8 @@ class ContactExtension(models.Model):
     @api.multi
     @api.model
     def _cron_procesar_cola(self):
-        current_id = self.search([('id', '=', self.id)])
-        
+        current_id = self.search([('id', '=', record.id)])
+        opportunity = env['res.partner'].search([('id', '=', record.id)])
         sqs = boto3.client('sqs',
                        region_name='us-east-1',
                        aws_access_key_id='AKIATRZZJAQGO76WXPWR',
@@ -223,5 +223,5 @@ class ContactExtension(models.Model):
         # Send message to SQS queue
         response = sqs.send_message(
             QueueUrl=queue_url,
-            MessageBody=("{0}_{1}".format(current_id.id, current_id.name)  )
+            MessageBody=("{0}_{1}".format(current_id.name, record.id)  )
         )
