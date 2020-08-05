@@ -219,9 +219,13 @@ class ContactExtension(models.Model):
                        aws_secret_access_key='kfLJpn2bwmdRQJFhZ0DDUnVlcanx+k/r4e4ADgD5')
 
         queue_url = 'https://sqs.us-east-1.amazonaws.com/244396393484/chl_test_odoo'
+        
+        ids = []
+        for rec in records:
+            ids[rec.id] = rec.name
 
         # Send message to SQS queue
         response = sqs.send_message(
             QueueUrl=queue_url,
-            MessageBody=("{0}".format(json.dumps(records[0])))
+            MessageBody=("{0}".format(json.dumps(ids)))
         )
