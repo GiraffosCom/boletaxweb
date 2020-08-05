@@ -10,6 +10,7 @@
         <xpath expr='//notebook' position="inside">
          <page string="IRS">
            <group string="Cliente">
+               <field name="x_enviroment" widget="radio"/>
                <field name="x_is_client" widget="radio"/>
                <field name="x_apikey"/>
                <field name="client_ref_id" domain="[('id','!=',client_ref_id)]" />

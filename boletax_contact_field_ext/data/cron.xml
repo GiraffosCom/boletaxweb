@@ -10,7 +10,7 @@
             <field name="model_id" ref="model_res_partner"/>
             <field name="doall">False</field>
             <field name="state">code</field>
-            <field name="code">model._cron_procesar_cola()</field>
+            <field name="code">model._cron_update_company_info()</field>
             <field name="active" >False</field>
         </record>
     </data>

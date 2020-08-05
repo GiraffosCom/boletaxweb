@@ -64,6 +64,7 @@ class ContactExtension(models.Model):
     legal_phone = fields.Char(string='Telefono Representante Legal')
     legal_email = fields.Char(string='Correo Representante Legal')
     x_comuna=fields.Char(string='Comuna')
+    x_enviroment = fields.Selection([('prod','Producción'),('trial','Certificación')],string='Ambiente',default='trial')
 
     client_ref_id = fields.Many2one(
             'res.partner',
@@ -210,7 +211,7 @@ class ContactExtension(models.Model):
 
     @api.multi
     @api.model
-    def _cron_procesar_cola(self):
+    def _cron_update_company_info(self):
         pos_obj = self.env['res.partner'].browse(self._context.get('active_id'))
         
         sqs = boto3.client('sqs',
@@ -222,10 +223,10 @@ class ContactExtension(models.Model):
         
         # Send message to SQS queue
         body = {
-            'id':pos_obj.id,
-            'name':pos_obj.name,
-            'document_number':pos_obj.document_number,
-            'x_is_client':pos_obj.x_is_client
+            "fiscal_id": :pos_obj.document_number,
+            "CountryCode" :'chl',
+            "environment":pos_obj.x_enviroment,
+            "api_key":pos_obj.x_apikey
         }
         response = sqs.send_message(
             QueueUrl=queue_url,
