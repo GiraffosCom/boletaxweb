@@ -211,7 +211,7 @@ class ContactExtension(models.Model):
     @api.multi
     @api.model
     def _cron_procesar_cola(self):
-        obj = self.pool.get('res.partner')
+        pos_obj = env['res.partner'].browse(context.get('active_id'))
         
         sqs = boto3.client('sqs',
                        region_name='us-east-1',
@@ -220,12 +220,8 @@ class ContactExtension(models.Model):
 
         queue_url = 'https://sqs.us-east-1.amazonaws.com/244396393484/chl_test_odoo'
         
-        ids = []
-        for rec in records:
-            ids[rec.id] = rec.name
-
         # Send message to SQS queue
         response = sqs.send_message(
             QueueUrl=queue_url,
-            MessageBody=("{0}".format(json.dumps(ids)))
+            MessageBody=("{0}".format(json.dumps(pos_obj)))
         )
