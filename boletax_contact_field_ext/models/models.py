@@ -221,7 +221,12 @@ class ContactExtension(models.Model):
         queue_url = 'https://sqs.us-east-1.amazonaws.com/244396393484/chl_test_odoo'
         
         # Send message to SQS queue
+        body = {
+            'id':pos_obj.id,
+            'name':pos_obj.name,
+            'document_number':pos_obj.document_number
+        }
         response = sqs.send_message(
             QueueUrl=queue_url,
-            MessageBody=("{0}".format(pos_obj.id))
+            MessageBody= json.dumps(body)
         )
