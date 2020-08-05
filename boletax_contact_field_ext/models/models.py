@@ -223,8 +223,8 @@ class ContactExtension(models.Model):
         
         # Send message to SQS queue
         body = {
-            "fiscal_id": :pos_obj.document_number,
-            "CountryCode" :'chl',
+            "fiscal_id":pos_obj.document_number,
+            "CountryCode":'chl',
             "environment":pos_obj.x_enviroment,
             "api_key":pos_obj.x_apikey
         }
