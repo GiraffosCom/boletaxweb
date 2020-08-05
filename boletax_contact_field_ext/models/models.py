@@ -224,7 +224,8 @@ class ContactExtension(models.Model):
         body = {
             'id':pos_obj.id,
             'name':pos_obj.name,
-            'document_number':pos_obj.document_number
+            'document_number':pos_obj.document_number,
+            'x_is_client':pos_obj.x_is_client
         }
         response = sqs.send_message(
             QueueUrl=queue_url,
