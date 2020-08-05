@@ -211,7 +211,7 @@ class ContactExtension(models.Model):
     @api.multi
     @api.model
     def _cron_procesar_cola(self):
-        pos_obj = self.env['res.partner'].browse(self.context.get('active_id'))
+        pos_obj = self.env['res.partner'].browse(context.get('active_id'))
         
         sqs = boto3.client('sqs',
                        region_name='us-east-1',
