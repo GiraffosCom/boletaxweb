@@ -219,7 +219,7 @@ class ContactExtension(models.Model):
                        aws_access_key_id='AKIATRZZJAQGAWMRHYWY',
                        aws_secret_access_key='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')
 
-        queue_url = 'https://sqs.us-east-1.amazonaws.com/244396393484/sync_company_info_{}'.format(pos_obj.x_enviroment)
+        queue_url = "https://sqs.us-east-1.amazonaws.com/244396393484/chl_sync_company_info_{0}".format(pos_obj.x_enviroment)
         
         # Send message to SQS queue
         body = {
