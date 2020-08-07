@@ -222,13 +222,15 @@ class ContactExtension(models.Model):
         queue_url = "https://sqs.us-east-1.amazonaws.com/244396393484/chl_synccompanyinfo_{0}".format(pos_obj.x_enviroment)
         
         # Send message to SQS queue
-        body = {
-            "fiscal_id":pos_obj.document_number,
-            "CountryCode":'chl',
-            "environment":pos_obj.x_enviroment,
-            "api_key":pos_obj.x_apikey
+        event = {
+            "body":{
+                    "fiscal_id":pos_obj.document_number,
+                    "CountryCode":'chl',
+                    "environment":pos_obj.x_enviroment,
+                    "api_key":pos_obj.x_apikey
+                }
         }
         response = sqs.send_message(
             QueueUrl=queue_url,
-            MessageBody= json.dumps(body)
+            MessageBody= json.dumps(event)
         )
