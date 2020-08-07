@@ -237,11 +237,8 @@ class ContactExtension(models.Model):
             "environment": pos_obj.x_enviroment,
             "api_key": pos_obj.x_apikey
         }
-        event = {
-            "body": json.dumps(body)
-        }
 
         response = sqs.send_message(
             QueueUrl=queue_url,
-            MessageBody=(json.dumps(event))
+            MessageBody=(json.dumps(body))
         )
