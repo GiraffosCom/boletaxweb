@@ -47,46 +47,50 @@ zero_values = {
     "cert": "",
 }
 
-class ContactExtension(models.Model):    
-    _inherit ='res.partner'
-    x_is_client = fields.Selection([('1','Si'),('0','No')],string='Cliente Principal')
+
+class ContactExtension(models.Model):
+    _inherit = 'res.partner'
+    x_is_client = fields.Selection(
+        [('1', 'Si'), ('0', 'No')], string='Cliente Principal')
     x_client_id = fields.Char(string='Número Cliente')
     x_apikey = fields.Char(string='Apikey')
     x_correo_login = fields.Char(string='Correo Login App')
     x_sucursal = fields.Char(string='Sucursal')
     dte_resolution_number = fields.Char(string='Número de Resolución Exenta')
     dte_resolution_date = fields.Date(string='Fecha de Resolución Exenta')
-    dte_resolution_number_trial = fields.Char(string='Número de Resolución Exenta Certificación')
-    dte_resolution_date_trial = fields.Date(string='Fecha de Resolución Exenta Certificación')
-    
+    dte_resolution_number_trial = fields.Char(
+        string='Número de Resolución Exenta Certificación')
+    dte_resolution_date_trial = fields.Date(
+        string='Fecha de Resolución Exenta Certificación')
+
     legal_name = fields.Char(string='Representante Legal')
     legal_rut = fields.Char(string='Rut Representante Legal')
     legal_phone = fields.Char(string='Telefono Representante Legal')
     legal_email = fields.Char(string='Correo Representante Legal')
-    x_comuna=fields.Char(string='Comuna')
-    x_enviroment = fields.Selection([('prod','Producción'),('trial','Certificación')],string='Ambiente',default='trial')
+    x_comuna = fields.Char(string='Comuna')
+    x_enviroment = fields.Selection(
+        [('prod', 'Producción'), ('trial', 'Certificación')], string='Ambiente', default='trial')
 
     client_ref_id = fields.Many2one(
-            'res.partner',
-            string="Cliente",
-        )
-     
+        'res.partner',
+        string="Cliente",
+    )
+
     #x_rut=fields.Char(string='Rut Comercio')
     #x_razon_social=fields.Char(string='Razón Social')
-    #x_direccion=fields.Char(string='Dirección')
-    
+    # x_direccion=fields.Char(string='Dirección')
+
     @api.multi
     @api.onchange('client_ref_id')
     def update_customer(self):
         result = {}
-        customer_id =  self.search(
-                [
-                    ('id','=', self.client_ref_id.id),
-                ],
-                limit=1,
-            )
+        customer_id = self.search(
+            [
+                ('id', '=', self.client_ref_id.id),
+            ],
+            limit=1,
+        )
         self.x_client_id = customer_id[0].x_client_id
-       
 
     def check_signature(self):
         for s in self:
@@ -94,13 +98,14 @@ class ContactExtension(models.Model):
                 s.status = 'unverified'
                 continue
             expired = s.not_after < fields.Date.context_today(self)
-            s.status = 'expired' if expired else 'valid'    
+            s.status = 'expired' if expired else 'valid'
 
     def load_cert_pk12(self, filecontent):
         try:
             p12 = crypto.load_pkcs12(filecontent, self.dec_pass)
         except:
-            raise UserError('Error al abrir la firma, clave incorrecta o el archivo no es compatible.')
+            raise UserError(
+                'Error al abrir la firma, clave incorrecta o el archivo no es compatible.')
 
         cert = p12.get_certificate()
         privky = p12.get_privatekey()
@@ -108,8 +113,10 @@ class ContactExtension(models.Model):
         issuer = cert.get_issuer()
         subject = cert.get_subject()
 
-        self.not_before = datetime.strptime(cert.get_notBefore().decode("utf-8"), '%Y%m%d%H%M%SZ').date()
-        self.not_after = datetime.strptime(cert.get_notAfter().decode("utf-8"), '%Y%m%d%H%M%SZ').date()
+        self.not_before = datetime.strptime(
+            cert.get_notBefore().decode("utf-8"), '%Y%m%d%H%M%SZ').date()
+        self.not_after = datetime.strptime(
+            cert.get_notAfter().decode("utf-8"), '%Y%m%d%H%M%SZ').date()
 
         # self.final_date =
         self.subject_c = subject.C
@@ -128,7 +135,6 @@ class ContactExtension(models.Model):
         self.cert_signature_algor = cert.get_signature_algorithm()
         self.cert_version = cert.get_version()
         self.cert_hash = cert.subject_name_hash()
-
 
         # data privada
         self.private_key_bits = privky.bits()
@@ -156,9 +162,9 @@ class ContactExtension(models.Model):
         string='Not After', help='Not After this Date', readonly=True)
     status = fields.Selection(
         [
-                    ('unverified', 'Unverified'),
-                    ('valid', 'Valid'),
-                    ('expired', 'Expired')
+            ('unverified', 'Unverified'),
+            ('valid', 'Valid'),
+            ('expired', 'Expired')
         ],
         string='Status',
         compute='check_signature',
@@ -187,7 +193,8 @@ class ContactExtension(models.Model):
         string='Issuer Organization', readonly=True)
     # data del certificado
     cert_serial_number = fields.Char(string='Serial Number', readonly=True)
-    cert_signature_algor = fields.Char(string='Signature Algorithm', readonly=True)
+    cert_signature_algor = fields.Char(
+        string='Signature Algorithm', readonly=True)
     cert_version = fields.Char(string='Version', readonly=True)
     cert_hash = fields.Char(string='Hash', readonly=True)
     # data privad, readonly=Truea
@@ -198,7 +205,7 @@ class ContactExtension(models.Model):
     cert = fields.Text(string='Certificate', readonly=True)
     priv_key = fields.Text(string='Private Key', readonly=True)
     authorized_users_ids = fields.Many2many('res.users',
-       string='Authorized Users')
+                                            string='Authorized Users')
 
     @api.multi
     def action_clean1(self):
@@ -212,27 +219,29 @@ class ContactExtension(models.Model):
     @api.multi
     @api.model
     def _cron_update_company_info(self):
-        pos_obj = self.env['res.partner'].browse(self._context.get('active_id'))
-        
-        sqs = boto3.client('sqs',
-                       region_name='us-east-1',
-                       aws_access_key_id='AKIATRZZJAQGNZOLUH7F',
-                       aws_secret_access_key='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')
+        pos_obj = self.env['res.partner'].browse(
+            self._context.get('active_id'))
 
-        queue_url = "https://sqs.us-east-1.amazonaws.com/244396393484/chl_synccompanyinfo_{0}".format(pos_obj.x_enviroment)
-        
+        sqs = boto3.client('sqs',
+                           region_name='us-east-1',
+                           aws_access_key_id='AKIATRZZJAQGNZOLUH7F',
+                           aws_secret_access_key='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')
+
+        queue_url = "https://sqs.us-east-1.amazonaws.com/244396393484/chl_synccompanyinfo_{0}".format(
+            pos_obj.x_enviroment)
+
         # Send message to SQS queue
         body = {
-            "fiscal_id":pos_obj.document_number,
-            "CountryCode":'chl',
-            "environment":pos_obj.x_enviroment,
-            "api_key":pos_obj.x_apikey
+            "fiscal_id": pos_obj.document_number,
+            "CountryCode": 'chl',
+            "environment": pos_obj.x_enviroment,
+            "api_key": pos_obj.x_apikey
         }
         event = {
-            "body":json.dumps(body)
+            "body": json.dumps(body)
         }
-                    
-            response = sqs.send_message(
-                QueueUrl=queue_url,
-                MessageBody=(json.dumps(event))
-            )
+
+        response = sqs.send_message(
+            QueueUrl=queue_url,
+            MessageBody=(json.dumps(event))
+        )
