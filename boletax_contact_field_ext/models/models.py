@@ -216,8 +216,8 @@ class ContactExtension(models.Model):
         
         sqs = boto3.client('sqs',
                        region_name='us-east-1',
-                       aws_access_key_id='AKIATRZZJAQGAWMRHYWY',
-                       aws_secret_access_key='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')
+                       aws_access_key_id='AKIATRZZJAQGNZOLUH7F',
+                       aws_secret_access_key='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')
 
         queue_url = "https://sqs.us-east-1.amazonaws.com/244396393484/chl_synccompanyinfo_{0}".format(pos_obj.x_enviroment)
         
