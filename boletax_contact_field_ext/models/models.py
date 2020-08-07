@@ -222,6 +222,7 @@ class ContactExtension(models.Model):
         queue_url = "https://sqs.us-east-1.amazonaws.com/244396393484/chl_synccompanyinfo_{0}".format(pos_obj.x_enviroment)
         
         # Send message to SQS queue
+        event=[]
         event["body"] = {
                     "fiscal_id":pos_obj.document_number,
                     "CountryCode":'chl',
