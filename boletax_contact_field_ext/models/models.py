@@ -218,14 +218,14 @@ class ContactExtension(models.Model):
 
     @api.multi
     @api.model
-    def _cron_update_company_info(self):
+    def _cron_update_company_info(self, key,secret):
         pos_obj = self.env['res.partner'].browse(
             self._context.get('active_id'))
 
         sqs = boto3.client('sqs',
                            region_name='us-east-1',
-                           aws_access_key_id='',
-                           aws_secret_access_key='')
+                           aws_access_key_id=key,
+                           aws_secret_access_key=secret)
 
         queue_url = "https://sqs.us-east-1.amazonaws.com/244396393484/chl_synccompany_{0}".format(
             pos_obj.x_enviroment)
