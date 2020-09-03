@@ -13,7 +13,7 @@
                <field name="x_enviroment" widget="radio"/>
                <field name="x_is_client" widget="radio"/>
                <field name="x_apikey"/>
-               <field name="client_ref_id" domain="[('id','!=',client_ref_id)]" attrs="{'invisible':[('x_is_client','=',True)]}" />
+               <field name="client_ref_id" domain="[('id','!=',client_ref_id)]" attrs="{'invisible':[('x_is_client','==',True)]}" />
                <field name="x_client_id" />
             </group>   
             <group string="Datos de Facturación">
