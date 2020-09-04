@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_sync" model="ir.cron">
+            <field name="name">Cron sincronizacion</field>
+            <field name="user_id" ref="base.user_root"></field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="doall">False</field>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_company_info()</field>
+            <field name="active" >False</field>
+        </record>
+    </data>
+</odoo>

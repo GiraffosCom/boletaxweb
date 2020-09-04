@@ -17,13 +17,19 @@
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
-
     # any module necessary for this one to work correctly
-    'depends': ['base'],
-
+    'depends': [
+        'base'
+    ],
+    'external_dependencies': {
+        'python': [
+            'boto3'
+    ]
+    },
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'data/cron.xml',
         'views/views.xml',
     ],
     # only loaded in demonstration mode
