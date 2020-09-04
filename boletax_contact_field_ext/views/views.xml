@@ -19,7 +19,7 @@
             <group string="Datos de Facturación">
                <field name="x_sucursal"/>
                <field name="x_correo_login"/>
-               <field name="x_comuna"/>
+               <field name="x_acteco"/>
                
                <field name="legal_name"/>
                <field name="legal_rut"/>

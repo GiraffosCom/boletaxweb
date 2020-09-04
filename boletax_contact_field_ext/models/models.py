@@ -67,7 +67,7 @@ class ContactExtension(models.Model):
     legal_rut = fields.Char(string='Rut Representante Legal')
     legal_phone = fields.Char(string='Telefono Representante Legal')
     legal_email = fields.Char(string='Correo Representante Legal')
-    x_comuna = fields.Char(string='Comuna')
+    x_acteco = fields.Char(string='Acteco')
     x_enviroment = fields.Selection(
         [('prod', 'Producción'), ('trial', 'Certificación')], string='Ambiente', default='trial')
 
